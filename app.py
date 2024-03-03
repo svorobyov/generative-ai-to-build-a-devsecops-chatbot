@@ -9,7 +9,9 @@ import kendra_chat_titan as titan
 
 USER_ICON = "images/user-icon.png"
 AI_ICON = "images/ai-icon.png"
+
 MAX_HISTORY_LENGTH = 5
+
 PROVIDER_MAP = {
     'openai': 'Open AI',
     'anthropic': 'Anthropic',
@@ -31,10 +33,9 @@ else:
 # Specify LLM
 if 'llm_chain' not in st.session_state:
     if (len(sys.argv) > 1):
-        allowedLLMs = ['titan', 'claudeV2','claudeV2',"claudeInstant"]
+        allowedLLMs = ['titan', 'claudeV2', 'claudeV2', "claudeInstant"]
         if sys.argv[1] not in allowedLLMs:
             raise Exception("Unsupported LLM: ", sys.argv[1])
-        
         st.session_state['llm_app'] = titan
         st.session_state['llm_chain'] = titan.build_chain(sys.argv[1])
     else:
@@ -42,7 +43,7 @@ if 'llm_chain' not in st.session_state:
 
 if 'chat_history' not in st.session_state:
     st.session_state['chat_history'] = []
-    
+
 if "chats" not in st.session_state:
     st.session_state.chats = [
         {
@@ -80,14 +81,15 @@ st.markdown("""
         </style>
         """, unsafe_allow_html=True)
 
+
 def write_logo():
     col1, col2, col3 = st.columns([5, 1, 5])
     with col2:
-        st.image(AI_ICON, use_column_width='always') 
+        st.image(AI_ICON, use_column_width='always')
 
 
 def write_top_bar():
-    col1, col2, col3 = st.columns([1,10,2])
+    col1, col2, col3 = st.columns([1, 10, 2])
     with col1:
         st.image(AI_ICON, use_column_width='always')
     with col2:
@@ -102,6 +104,7 @@ def write_top_bar():
         clear = st.button("Clear Chat")
     return clear
 
+
 clear = write_top_bar()
 
 if clear:
@@ -109,6 +112,7 @@ if clear:
     st.session_state.answers = []
     st.session_state.input = ""
     st.session_state["chat_history"] = []
+
 
 def handle_input():
     input = st.session_state.input
@@ -127,8 +131,7 @@ def handle_input():
     result = chain.run_chain(llm_chain, input, chat_history)
     answer = result['answer']
     chat_history.append((input, answer))
-    
-    
+
     document_list = []
     if 'source_documents' in result:
         for d in result['source_documents']:
@@ -145,9 +148,9 @@ def handle_input():
     })
     st.session_state.input = ""
 
+
 def write_user_message(md):
-    col1, col2 = st.columns([1,12])
-    
+    col1, col2 = st.columns([1, 12])
     with col1:
         st.image(USER_ICON, use_column_width='always')
     with col2:
@@ -164,26 +167,30 @@ def render_result(result):
         else:
             render_sources([])
 
+
 def render_answer(answer):
-    col1, col2 = st.columns([1,12])
+    col1, col2 = st.columns([1, 12])
     with col1:
         st.image(AI_ICON, use_column_width='always')
     with col2:
         st.info(answer['answer'])
 
+
 def render_sources(sources):
-    col1, col2 = st.columns([1,12])
+    col1, col2 = st.columns([1, 12])
     with col2:
         with st.expander("Sources"):
             for s in sources:
                 st.write(s)
-    
-#Each answer will have context of the question asked in order to associate the provided feedback with the respective question
+
+
+# Each answer will have context of the question asked in order to associate the provided feedback with the respective question
 def write_chat_message(md, q):
     chat = st.container()
     with chat:
         render_answer(md['answer'])
         render_sources(md['sources'])
+
 
 with st.container():
     for (q, a) in zip(st.session_state.questions, st.session_state.answers):
@@ -194,7 +201,7 @@ st.markdown('---')
 input = st.text_input("You are talking to an AI, ask any question.", key="input", on_change=handle_input)
 
 with st.sidebar:
-    st.subheader("Sample Prompt") 
+    st.subheader("Sample Prompt")
     st.caption("What is a Threat Model?")
     st.caption("Why do we need Threat Models?")
     st.caption("Give me a good approach for a Threat Model")
