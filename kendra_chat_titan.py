@@ -150,7 +150,8 @@ class bcolors:
 
 
 def build_chain(model="claudeV2"):
-    region = os.environ["AWS_REGION"]
+    # region = os.environ["AWS_REGION"]
+    region = _AWS_REGION
     kendra_index_id = os.environ["KENDRA_INDEX_ID"]
     if model == "claudeV2":
         llm = get_claudeV2_llm()
