@@ -207,4 +207,5 @@ with st.sidebar:
     st.caption("Give me a good approach for a Threat Model")
     st.caption("A barber shaves everyone who does not shave himself. Who shaves the barber?")
     st.caption("What is Platform Engineering?")
+    st.caption("Compare Palo Alto Prisma Cloud and Snyk")
     st.caption("")

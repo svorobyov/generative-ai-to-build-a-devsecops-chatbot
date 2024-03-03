@@ -5,18 +5,18 @@ from langchain.prompts import PromptTemplate
 from langchain.llms.bedrock import Bedrock
 
 import boto3
-import json
-import os
+# import json
+# import os
 import sys
-from utils import bedrock, print_ww
+# from utils import bedrock, print_ww
 
-
-_AWS_REGION = 'us-east-1'
+# TODO: module kendra_conf.py is NOT committed to GitHub, define appropriate values directly here!
+from kendra_conf import AWS_REGION, KENDRA_INDEX_ID
 
 
 def get_titan_llm():
-    bedrock_region_name = _AWS_REGION
-    bedrock_endpoint_url = f'https://bedrock-runtime.{_AWS_REGION}.amazonaws.com'
+    bedrock_region_name = AWS_REGION
+    bedrock_endpoint_url = f'https://bedrock-runtime.{AWS_REGION}.amazonaws.com'
     aws_profile = None
     session = boto3.Session(profile_name=aws_profile)
     bedrock_client = session.client(
@@ -37,8 +37,8 @@ def get_titan_llm():
 
 
 def get_ai21_llm():
-    bedrock_region_name = _AWS_REGION
-    bedrock_endpoint_url = f'https://bedrock-runtime.{_AWS_REGION}.amazonaws.com'
+    bedrock_region_name = AWS_REGION
+    bedrock_endpoint_url = f'https://bedrock-runtime.{AWS_REGION}.amazonaws.com'
     aws_profile = "jaybedrock"  # TODO: ???
     session = boto3.Session(profile_name=aws_profile)
     bedrock_client = session.client(
@@ -59,8 +59,8 @@ def get_ai21_llm():
 
 
 def get_claudeV2_llm():
-    bedrock_region_name = _AWS_REGION
-    bedrock_endpoint_url = f'https://bedrock-runtime.{_AWS_REGION}.amazonaws.com'
+    bedrock_region_name = AWS_REGION
+    bedrock_endpoint_url = f'https://bedrock-runtime.{AWS_REGION}.amazonaws.com'
     aws_profile = None  # TODO: "jaybedrock"
     session = boto3.Session(profile_name=aws_profile)
     bedrock_client = session.client(
@@ -83,8 +83,8 @@ def get_claudeV2_llm():
 
 
 def get_claudeInstant_llm():
-    bedrock_region_name = _AWS_REGION
-    bedrock_endpoint_url = f'https://bedrock-runtime.{_AWS_REGION}.amazonaws.com'
+    bedrock_region_name = AWS_REGION
+    bedrock_endpoint_url = f'https://bedrock-runtime.{AWS_REGION}.amazonaws.com'
     aws_profile = None  # TODO: "jaybedrock"
     session = boto3.Session(profile_name=aws_profile)
     bedrock_client = session.client(
@@ -108,8 +108,8 @@ def get_claudeInstant_llm():
 
 
 def get_claudeV1_llm():
-    bedrock_region_name = _AWS_REGION
-    bedrock_endpoint_url = f'https://bedrock-runtime.{_AWS_REGION}.amazonaws.com'
+    bedrock_region_name = AWS_REGION
+    bedrock_endpoint_url = f'https://bedrock-runtime.{AWS_REGION}.amazonaws.com'
     aws_profile = None  # TODO: "jaybedrock"
     session = boto3.Session(profile_name=aws_profile)
     bedrock_client = session.client(
@@ -143,16 +143,16 @@ class bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
+MAX_HISTORY_LENGTH = 5  # TODO: UNUSED!!!
 """
 
 
-# MAX_HISTORY_LENGTH = 5  # TODO: UNUSED!!!
-
-
 def build_chain(model="claudeV2"):
-    # region = os.environ["AWS_REGION"]
-    region = _AWS_REGION
-    kendra_index_id = os.environ["KENDRA_INDEX_ID"]
+    # region = os.environ["AWS_REGION"]  # TODO: old!!!
+    region = AWS_REGION
+    # kendra_index_id = os.environ["KENDRA_INDEX_ID"]  # TODO: old!!!
+    kendra_index_id = KENDRA_INDEX_ID
     if model == "claudeV2":
         llm = get_claudeV2_llm()
     elif model == "claudeV1":
