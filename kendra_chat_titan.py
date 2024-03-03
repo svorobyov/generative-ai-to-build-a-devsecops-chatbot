@@ -10,8 +10,8 @@ import sys
 from utils import bedrock, print_ww
 
 def get_titan_llm():
-    bedrock_region_name='us-west-2'
-    bedrock_endpoint_url='https://bedrock-runtime.us-west-2.amazonaws.com'
+    bedrock_region_name='us-east-1'
+    bedrock_endpoint_url='https://bedrock-runtime.us-east-1.amazonaws.com'
     aws_profile=None
     
     session = boto3.Session(profile_name=aws_profile)
@@ -31,8 +31,8 @@ def get_titan_llm():
 
 def get_ai21_llm():
     
-    bedrock_region_name='us-west-2'
-    bedrock_endpoint_url='https://bedrock-runtime.us-west-2.amazonaws.com'
+    bedrock_region_name='us-east-1'
+    bedrock_endpoint_url='https://bedrock-runtime.us-east-1.amazonaws.com'
     aws_profile="jaybedrock"
     
     
@@ -53,8 +53,8 @@ def get_ai21_llm():
 
 def get_claudeV2_llm():
     
-    bedrock_region_name='us-west-2'
-    bedrock_endpoint_url='https://bedrock-runtime.us-west-2.amazonaws.com'
+    bedrock_region_name='us-east-1'
+    bedrock_endpoint_url='https://bedrock-runtime.us-east-1.amazonaws.com'
     aws_profile= None #"jaybedrock"
 
     session = boto3.Session(profile_name=aws_profile)
@@ -77,8 +77,8 @@ def get_claudeV2_llm():
     return claude_llm
 
 def get_claudeInstant_llm():
-    bedrock_region_name='us-west-2'
-    bedrock_endpoint_url='https://bedrock-runtime.us-west-2.amazonaws.com'
+    bedrock_region_name='us-east-1'
+    bedrock_endpoint_url='https://bedrock-runtime.us-east-1.amazonaws.com'
     aws_profile= None #"jaybedrock"
 
     session = boto3.Session(profile_name=aws_profile)
@@ -101,8 +101,8 @@ def get_claudeInstant_llm():
     return claude_llm
 
 def get_claudeV1_llm():
-    bedrock_region_name='us-west-2'
-    bedrock_endpoint_url='https://bedrock-runtime.us-west-2.amazonaws.com'
+    bedrock_region_name='us-east-1'
+    bedrock_endpoint_url='https://bedrock-runtime.us-east-1.amazonaws.com'
     aws_profile= None #"jaybedrock"
 
     session = boto3.Session(profile_name=aws_profile)
